@@ -13,37 +13,7 @@ export class SearchDialogService {
 
   constructor(private dialog: MatDialog) {}
 
-  open(value: string) {
-    this.dialogRef = this.dialog.open(SearchContainerComponent, {
-      data: {
-        component: new SearchComponentRegistration(Search1Component, []),
-        module: Search1ComponentModule
-      },
-    });
-    /*     this.loadComponent(value)
-      .pipe(first())
-      .subscribe((component: any) => {
-        this.dialogRef = this.dialog.open(DialogShellComponent, {
-          data: { component: component },
-        });
-      }); */
+  open() {
+    this.dialogRef = this.dialog.open(SearchContainerComponent, {});
   }
-
-  /*   private loadComponent(type: string): Observable<any> {
-    if (type === 'Search1') {
-      return from(
-        import('../../search1/search1.component').then(
-          (m) => m.Search1Component
-        )
-      );
-    } else if (type === 'Search2') {
-      return from(
-        import('../../search2/search2.component').then(
-          (m) => m.Search2Component
-        )
-      );
-    } else {
-      throw new Error();
-    }
-  } */
 }

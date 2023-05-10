@@ -12,7 +12,7 @@ export class AppComponent {
 
   store = Store;
 
-  displaySearchModal(value: string) {
-    this.searchDialogService.open(value);
+  displaySearchModal() {
+    this.searchDialogService.open();
   }
 }

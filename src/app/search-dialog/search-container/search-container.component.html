@@ -1,6 +1,15 @@
 <h2 mat-dialog-title>Title</h2>
 <mat-dialog-content>
-  <!-- dropdown containing store values *ngFor="let combo of store" [value]="selected" -->
+  <mat-form-field appearance="fill">
+    <mat-select
+      [formControl]="selectedComponent"
+      (selectionChange)="onSelectComponent($event)"
+    >
+      <mat-option *ngFor="let o of options" [value]="o">
+        {{ o }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <ng-template platformSearchComponent></ng-template>
 </mat-dialog-content>
-

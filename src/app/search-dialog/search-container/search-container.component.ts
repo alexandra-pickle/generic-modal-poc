@@ -3,9 +3,7 @@ import {
   Component,
   Inject,
   Injector,
-  Input,
   NgModule,
-  NgModuleRef,
   OnDestroy,
   OnInit,
   Type,
@@ -15,10 +13,10 @@ import {
 import { SearchComponentRegistration } from 'src/app/config/search-component-registration';
 import { PlatformSearchComponentDirective } from './platform-search-component.directive';
 import { SearchBaseComponent } from 'src/app/config/search-base.component';
-import { Search1ComponentModule } from 'src/app/search1/search1.component.module';
 import { SearchContainerComponentModule } from './search-container.component.module';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ComponentModuleCombo, Store } from 'src/app/config/store';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-search-container',
@@ -26,7 +24,8 @@ import { ComponentModuleCombo, Store } from 'src/app/config/store';
   styleUrls: ['./search-container.component.css'],
 })
 export class SearchContainerComponent
-  implements OnInit, OnDestroy, AfterContentInit {
+  implements OnInit, OnDestroy, AfterContentInit
+{
   searchComponent!: SearchComponentRegistration;
   searchModule!: Type<NgModule>;
 
@@ -36,22 +35,22 @@ export class SearchContainerComponent
   @ViewChild(PlatformSearchComponentDirective, { static: true })
   platformSearchComponent!: PlatformSearchComponentDirective;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+  options: string[] = Object.keys(Store);
+  selectedComponent = new FormControl(null);
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<SearchContainerComponent>,
-    private injector: Injector) {
-    this.searchComponent = data.component;
-    this.searchModule = data.module;
-  }
+    private injector: Injector
+  ) {}
 
-  ngOnInit(): void {
-    this.initializeSearchComponent();
-  }
+  ngOnInit(): void {}
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {}
 
-  ngAfterContentInit(): void { }
+  ngAfterContentInit(): void {}
 
-  initializeSearchComponent(): void {
+  async initializeSearchComponent() {
     const viewContainerRef = this.platformSearchComponent.viewContainerRef;
     viewContainerRef.clear();
 
@@ -60,7 +59,7 @@ export class SearchContainerComponent
     const componentRef = viewContainerRef.createComponent<SearchBaseComponent>(
       this.searchComponent?.component!,
       {
-        ngModuleRef: modRef
+        ngModuleRef: modRef,
       }
     );
     componentRef.instance.searchTerm = this.searchComponent?.data;
@@ -68,5 +67,15 @@ export class SearchContainerComponent
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onSelectComponent(event: any) {
+    this.searchComponent = new SearchComponentRegistration(
+      Store[event.value].component,
+      []
+    );
+    this.searchModule = Store[event.value].module;
+
+    this.initializeSearchComponent();
   }
 }
