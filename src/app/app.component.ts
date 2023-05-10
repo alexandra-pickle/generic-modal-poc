@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SearchDialogService } from './search-dialog/search-dialog-service/search-dialog.service';
+import { Store } from './config/store';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,8 @@ import { SearchDialogService } from './search-dialog/search-dialog-service/searc
 })
 export class AppComponent {
   constructor(private searchDialogService: SearchDialogService) {}
+
+  store = Store;
 
   displaySearchModal(value: string) {
     this.searchDialogService.open(value);

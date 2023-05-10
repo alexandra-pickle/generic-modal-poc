@@ -1,25 +1,23 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Observable, first, from } from 'rxjs';
-import {
-  DialogShellComponentModule,
-  DialogShellComponent,
-} from '../search-dialog-component';
 import { Search1Component } from 'src/app/search1/search1.component';
 import { SearchComponentRegistration } from 'src/app/config/search-component-registration';
+import { Search1ComponentModule } from 'src/app/search1/search1.component.module';
+import { SearchContainerComponent } from '../search-container/search-container.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchDialogService {
-  private dialogRef!: MatDialogRef<DialogShellComponent>;
+  private dialogRef!: MatDialogRef<SearchContainerComponent>;
 
   constructor(private dialog: MatDialog) {}
 
   open(value: string) {
-    this.dialogRef = this.dialog.open(DialogShellComponent, {
+    this.dialogRef = this.dialog.open(SearchContainerComponent, {
       data: {
         component: new SearchComponentRegistration(Search1Component, []),
+        module: Search1ComponentModule
       },
     });
     /*     this.loadComponent(value)
