@@ -36,8 +36,6 @@ export class SearchContainerComponent
   @ViewChild(PlatformSearchComponentDirective, { static: true })
   platformSearchComponent!: PlatformSearchComponentDirective;
 
-
-
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<SearchContainerComponent>,
     private injector: Injector) {
@@ -65,7 +63,7 @@ export class SearchContainerComponent
         ngModuleRef: modRef
       }
     );
-    componentRef.instance.data = this.searchComponent?.data;
+    componentRef.instance.searchTerm = this.searchComponent?.data;
   }
 
   onNoClick(): void {
