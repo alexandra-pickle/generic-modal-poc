@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SearchBaseComponent } from '../config/search-base.component';
 import { SearchComponentType } from '../config/search-component-type.decorator';
 
@@ -10,4 +10,5 @@ import { SearchComponentType } from '../config/search-component-type.decorator';
 @SearchComponentType('Search2Component')
 export class Search2Component implements SearchBaseComponent {
   data: any;
+  @Input() searchTerm?: string;
 }

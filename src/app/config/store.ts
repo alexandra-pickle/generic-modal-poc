@@ -8,6 +8,6 @@ export interface ComponentModuleCombo {
   module: Type<NgModule>;
 };
 
-export const Store: { [key: string]: ComponentModuleCombo} = {
+export const Store: { [key: string]: ComponentModuleCombo } = {
   'search1': { component: Search1Component, module: Search1ComponentModule }
 };
