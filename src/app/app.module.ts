@@ -5,10 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { SearchContainerComponentModule } from './search-dialog/search-container/search-container.component.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,10 +14,7 @@ import { MatInputModule } from '@angular/material/input';
     BrowserModule,
     BrowserAnimationsModule,
     CommonModule,
-    MatDialogModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatInputModule,
+    SearchContainerComponentModule,
   ],
   bootstrap: [AppComponent],
 })
