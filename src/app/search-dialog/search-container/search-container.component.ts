@@ -13,11 +13,17 @@ import {
 import { SearchComponentRegistration } from 'src/app/config/search-component-registration';
 import { PlatformSearchComponentDirective } from './platform-search-component.directive';
 import { SearchBaseComponent } from 'src/app/config/search-base.component';
-import { SearchContainerComponentModule } from './search-container.component.module';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ComponentModuleCombo, Store } from 'src/app/config/store';
 import { FormGroup, FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter, of, startWith, tap } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  of,
+  startWith,
+  tap,
+} from 'rxjs';
 
 @Component({
   selector: 'app-search-container',
@@ -51,19 +57,22 @@ export class SearchContainerComponent
   ) {}
 
   ngOnInit(): void {
+    this.form
+      .get('selectedComponent')
+      ?.valueChanges.pipe(tap((v) => console.log('selected', v)))
+      .subscribe();
+    this.form
+      .get('searchTerm')!
+      .valueChanges.pipe(
+        debounceTime(250),
+        distinctUntilChanged(),
+        filter((t) => !!t),
+        tap((v) => console.log('search', v)),
+        tap((v) => this.searchComponent?.searchTerm$.next(v))
+      )
+      .subscribe();
 
-    this.form.get('selectedComponent')?.valueChanges.pipe(
-      tap(v => console.log('selected', v))
-    ).subscribe();
-    this.form.get('searchTerm')!.valueChanges.pipe(
-      debounceTime(250),
-      distinctUntilChanged(),
-      filter(t => !!t),
-      tap(v => console.log('search', v)),
-      tap(v => this.searchComponent?.searchTerm$.next(v))
-    ).subscribe();
-
-    this
+    this;
   }
 
   ngOnDestroy(): void {}
@@ -74,14 +83,23 @@ export class SearchContainerComponent
     const viewContainerRef = this.platformSearchComponent.viewContainerRef;
     viewContainerRef.clear();
 
-    const modRef = createNgModule(this.searchModule, this.injector);
+    const moduleName = 'Search1ComponentModule';
+    const componentName = 'Search1Component';
 
-    this.searchComponent = viewContainerRef.createComponent<SearchBaseComponent>(
-      this.searchComponentRegistration?.component!,
-      {
-        ngModuleRef: modRef,
-      }
-    ).instance;
+    import('../../search1').then((items) => {
+      const modRef = createNgModule(items[moduleName], this.injector);
+      const registration = new SearchComponentRegistration(
+        items[componentName]
+      );
+
+      this.searchComponent =
+        viewContainerRef.createComponent<SearchBaseComponent>(
+          registration.component,
+          {
+            ngModuleRef: modRef,
+          }
+        ).instance;
+    });
   }
 
   onNoClick(): void {
