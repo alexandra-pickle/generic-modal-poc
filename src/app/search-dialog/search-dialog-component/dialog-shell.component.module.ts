@@ -2,13 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DialogShellComponent } from './dialog-shell.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { DialogService } from './dialog.service';
+import { SearchContainerComponentModule } from '../search-container/search-container.component.module';
 
 @NgModule({
   declarations: [DialogShellComponent],
-  imports: [CommonModule, MatDialogModule, MatButtonModule],
+  imports: [CommonModule, MatDialogModule, SearchContainerComponentModule],
   exports: [DialogShellComponent],
-  providers: [DialogService],
 })
-export class MatDialogShellComponentModule {}
+export class DialogShellComponentModule {}

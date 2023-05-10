@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DialogService } from './dialog-shell-component/dialog.service';
+import { SearchDialogService } from './search-dialog/search-dialog-service/search-dialog.service';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +7,9 @@ import { DialogService } from './dialog-shell-component/dialog.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(private dialogService: DialogService) {}
+  constructor(private searchDialogService: SearchDialogService) {}
 
   displaySearchModal(value: string) {
-    this.dialogService.open(value);
+    this.searchDialogService.open(value);
   }
 }
