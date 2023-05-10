@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SearchBaseComponent } from '../config/search-base.component';
 import { SearchComponentType } from '../config/search-component-type.decorator';
+import { Observable, Subject, tap } from 'rxjs';
 
 @Component({
   selector: 'app-search2',
@@ -8,6 +9,9 @@ import { SearchComponentType } from '../config/search-component-type.decorator';
   styleUrls: ['./search2.component.css'],
 })
 @SearchComponentType('Search2Component')
-export class Search2Component implements SearchBaseComponent {
-  //  @Input() searchTerm?: string;
+export class Search2Component implements SearchBaseComponent, OnInit {
+
+  @Input() searchTerm$ = new Subject<string>();
+
+  ngOnInit(): void { }
 }

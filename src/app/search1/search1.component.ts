@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Search1Service } from './search1.service';
 import { SearchBaseComponent } from '../config/search-base.component';
 import { SearchComponentType } from '../config/search-component-type.decorator';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 
 @Component({
   selector: 'app-search1',
@@ -13,9 +13,9 @@ import { Observable } from 'rxjs';
 export class Search1Component implements SearchBaseComponent, OnInit {
   data: string[] = [];
   data2 = ['test1', 'test2', 'test3'];
-  @Input() searchTerm$?: Observable<string>;
+  @Input() searchTerm$ = new Subject<string>();
 
-  constructor(private search1Service: Search1Service) {}
+  constructor(private search1Service: Search1Service) { }
 
   ngOnInit() {
     this.search1Service.getSerch1Data().subscribe((data) => {
