@@ -53,7 +53,8 @@ export class SearchContainerComponent
   ngOnInit(): void {
 
     this.form.get('selectedComponent')?.valueChanges.pipe(
-      tap(v => console.log('selected', v))
+      tap(v => console.log('selected', v)),
+      tap(() => this.form.get('searchTerm')?.reset())
     ).subscribe();
     this.form.get('searchTerm')!.valueChanges.pipe(
       debounceTime(250),
