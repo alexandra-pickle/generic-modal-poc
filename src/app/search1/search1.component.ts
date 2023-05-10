@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Search1Service } from './search1.service';
 import { SearchBaseComponent } from '../config/search-base.component';
 import { SearchComponentType } from '../config/search-component-type.decorator';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-search1',
@@ -12,8 +13,7 @@ import { SearchComponentType } from '../config/search-component-type.decorator';
 export class Search1Component implements SearchBaseComponent, OnInit {
   data: string[] = [];
   data2 = ['test1', 'test2', 'test3'];
-  @Input() searchTerm?: string;
-
+  @Input() searchTerm$?: Observable<string>;
 
   constructor(private search1Service: Search1Service) {}
 

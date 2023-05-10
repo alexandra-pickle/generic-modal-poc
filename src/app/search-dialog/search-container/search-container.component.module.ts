@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [SearchContainerComponent, PlatformSearchComponentDirective],
@@ -16,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatDialogModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatInputModule,
   ],
   exports: [SearchContainerComponent],
 })

@@ -1,15 +1,22 @@
 <h2 mat-dialog-title>Title</h2>
 <mat-dialog-content>
-  <mat-form-field appearance="fill">
-    <mat-select
-      [formControl]="selectedComponent"
-      (selectionChange)="onSelectComponent($event)"
-    >
-      <mat-option *ngFor="let o of options" [value]="o">
-        {{ o }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill">
+      <mat-select
+        formControlName="selectedComponent"
+        (selectionChange)="onSelectComponent($event)"
+      >
+        <mat-option *ngFor="let o of options" [value]="o">
+          {{ o }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="form.get('selectedComponent')?.value">
+      <mat-label>Serach</mat-label>
+      <input matInput placeholder="Search" formControlName="searchTerm" />
+    </mat-form-field>
+  </form>
 
   <ng-template platformSearchComponent></ng-template>
 </mat-dialog-content>

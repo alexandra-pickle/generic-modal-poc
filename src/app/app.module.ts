@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatDialogModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatInputModule,
   ],
   bootstrap: [AppComponent],
 })

@@ -9,6 +9,5 @@ import { SearchComponentType } from '../config/search-component-type.decorator';
 })
 @SearchComponentType('Search2Component')
 export class Search2Component implements SearchBaseComponent {
-  data: any;
-  @Input() searchTerm?: string;
+  //  @Input() searchTerm?: string;
 }

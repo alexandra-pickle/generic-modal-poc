@@ -16,7 +16,7 @@ import { SearchBaseComponent } from 'src/app/config/search-base.component';
 import { SearchContainerComponentModule } from './search-container.component.module';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ComponentModuleCombo, Store } from 'src/app/config/store';
-import { FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-search-container',
@@ -36,7 +36,11 @@ export class SearchContainerComponent
   platformSearchComponent!: PlatformSearchComponentDirective;
 
   options: string[] = Object.keys(Store);
-  selectedComponent = new FormControl(null);
+
+  form = new FormGroup({
+    searchTerm: new FormControl(''),
+    selectedComponent: new FormControl(null),
+  });
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -50,7 +54,7 @@ export class SearchContainerComponent
 
   ngAfterContentInit(): void {}
 
-  async initializeSearchComponent() {
+  initializeSearchComponent() {
     const viewContainerRef = this.platformSearchComponent.viewContainerRef;
     viewContainerRef.clear();
 
@@ -62,7 +66,7 @@ export class SearchContainerComponent
         ngModuleRef: modRef,
       }
     );
-    componentRef.instance.searchTerm = this.searchComponent?.data;
+    // componentRef.instance.searchTerm = this.searchComponent?.data;
   }
 
   onNoClick(): void {
@@ -71,8 +75,7 @@ export class SearchContainerComponent
 
   onSelectComponent(event: any) {
     this.searchComponent = new SearchComponentRegistration(
-      Store[event.value].component,
-      []
+      Store[event.value].component
     );
     this.searchModule = Store[event.value].module;
 
